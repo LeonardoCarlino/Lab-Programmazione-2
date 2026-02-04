@@ -24,7 +24,14 @@
                 x:Name="btnConverti"
                 Text="Converti in €"
                 TextColor="White"
-                Clicked="btnConverti_Clicked"/>
+                Clicked="BtnConverti_Clicked"/>
+
+
+            <Button
+                x:Name="btnReset"
+                Text="Pulisci"
+                TextColor="White"
+                Clicked="BtnReset_Clicked"/>
 
             <Label x:Name="lblRisultato"
                 Text="Risultato: -"
