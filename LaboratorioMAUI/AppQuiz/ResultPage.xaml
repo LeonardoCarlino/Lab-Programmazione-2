@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppQuiz.ResultPage"
+             Title="ResultPage"
+             BackgroundColor="White"
+             Padding="20">
+    <VerticalStackLayout
+        VerticalOptions="Center"
+        Spacing="20">
+        
+        <Label 
+            Text="QUIZ COMPLETATO!"
+            FontSize="30"
+            TextColor="Black"
+            HorizontalOptions="Center"/>
+
+        <Frame
+            BackgroundColor="#f5f6f7"
+            BorderColor="#c5c3c7"
+            CornerRadius="15">
+            <VerticalStackLayout>
+                
+                <Label 
+                    Text="Il tuo punteggio"
+                    TextColor="Black"
+                    HorizontalOptions="Center"/>
+                
+                <Label 
+                    x:Name="lblScore"
+                    Text="0"
+                    FontSize="40"
+                    TextColor="#a55ce6"
+                    HorizontalOptions="Center"/>
+                
+            </VerticalStackLayout>
+        </Frame>
+        
+        <Label 
+            x:Name="lblBestScore"
+            Text="🏆 Miglior Punteggio: "
+            FontSize="20"
+            TextColor="Gold"
+            FontAttributes="Bold"
+            HorizontalOptions="Center"/>
+
+        <Button
+            x:Name="btnPlayAgain"
+            Text="GIOCA ANCORA"
+            Clicked="btnPlayAgain_Clicked"
+            TextColor="White"
+            BackgroundColor="DarkBlue"
+            CornerRadius="20"
+            />
+
+
+    </VerticalStackLayout>
+</ContentPage>

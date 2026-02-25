@@ -51,7 +51,18 @@ namespace AppQuiz
                 DomandaLabel.IsVisible = false;
                 ScoreLabel.IsVisible = false;
                 QuestionImage.IsVisible = false;
+                BtnResult.IsVisible = true;
             }
+        }
+
+        private void btnResult_Clicked(object sender, EventArgs e)
+        {
+            OnQuizFinished();
+        }
+
+        private async void OnQuizFinished()
+        {
+            await Navigation.PushAsync(new ResultPage(_score));
         }
     }
 
