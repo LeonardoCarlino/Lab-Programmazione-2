@@ -22,9 +22,9 @@ namespace AppQuiz.Models
 			CorrectAnswer = correctAnswer;
 		}
 
-		public override bool CheckAnswer(bool userAnswer)
+		public override bool CheckAnswer(string userAnswer)
 		{
-			return userAnswer == CorrectAnswer;
+			return bool.Parse(userAnswer.ToString()) == CorrectAnswer;
 		}
 
 	}

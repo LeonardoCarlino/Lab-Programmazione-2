@@ -12,23 +12,44 @@ namespace AppQuiz
         public MainPage()
         {
             InitializeComponent();
-            _questions.Add(new TrueFalseQuestion("Il C# è un linguaggio ad oggetti?", 10, true, "csharp_logo.png"));
+            _questions.Add(new TrueFalseQuestion("Il C# è un linguaggio ad oggetti?", 10, true, "csharp.png"));
             _questions.Add(new TrueFalseQuestion("Python è un linguaggio compilato?", 15, false, "python_logo.png"));
+            _questions.Add(new OpenQuestion("Qual'è il nome del frame?", 20, ".NET MAUI", "microsoft.png"));
             ShowQuestion();
         }
         
-        private void OnAnswer_Clicked(object sender, EventArgs e)
+        private async void OnAnswer_Clicked(object sender, EventArgs e)
          {
+            QuestionBase current = _questions[_currentIndex];
             // L'evento porta con se il sender che è il button
             var btn = (Button)sender;
-            // Trasforma command parameter in stringa e lo rende valore booleano
-            bool userAnwer = bool.Parse(btn.CommandParameter.ToString());
 
-            if (_questions[_currentIndex].CheckAnswer(userAnwer))
+            string userAnswer = null;
+
+            if (current is TrueFalseQuestion)
+            {
+                // Trasforma command parameter in stringa e lo rende valore booleano
+                userAnswer = btn.CommandParameter.ToString();
+            } else if(current is OpenQuestion)
+            {
+                if (string.IsNullOrWhiteSpace(UserAnswer.Text))
+                {
+                    DisplayAlert("Errore", "Il campo della risposta non può essere vuoto.", "OK");
+                    return;
+                }
+                userAnswer = UserAnswer.Text;
+            }
+
+            if (_questions[_currentIndex].CheckAnswer(userAnswer))
             {
                 _score += _questions[_currentIndex].Points;
+                await DisplayAlert("Esatto!", "Hai indovinato.", "OK");
             }
-            _totalScore += _questions[_currentIndex].Points;
+            else
+            {
+                await DisplayAlert("Errore", "Riprova alla prossima.", "OK");
+            }
+                _totalScore += _questions[_currentIndex].Points;
             _currentIndex++;
             ShowQuestion();
          }
@@ -40,7 +61,22 @@ namespace AppQuiz
                 //Creo un oggetto Question che contiene la domanda corrente
                 QuestionBase current = _questions[_currentIndex];
                 QuestionTextLabel.Text = current.Text;
+     
                 QuestionImage.Source = current.ImageName;
+                if (current is TrueFalseQuestion)
+                {
+                    TrueButton.IsVisible = true;
+                    FalseButton.IsVisible = true;
+                    UserAnswer.IsVisible = false;
+                    SendUserAnswer.IsVisible = false;
+                }
+                else if (current is OpenQuestion)
+                {
+                    UserAnswer.IsVisible = true;
+                    SendUserAnswer.IsVisible = true;
+                    TrueButton.IsVisible = false;
+                    FalseButton.IsVisible = false;
+                }
                 ScoreLabel.Text = $"Punti: {_score.ToString()}"; //Cast in stringa
             }
             else
@@ -52,6 +88,8 @@ namespace AppQuiz
                 ScoreLabel.IsVisible = false;
                 QuestionImage.IsVisible = false;
                 BtnResult.IsVisible = true;
+                UserAnswer.IsVisible = false;
+                SendUserAnswer.IsVisible = false;
             }
         }
 

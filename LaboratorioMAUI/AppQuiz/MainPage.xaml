@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppQuiz.MainPage">
+             x:Class="AppQuiz.MainPage"
+             Padding="20">
 
     <ScrollView>
         <VerticalStackLayout Spacing="30"
@@ -52,6 +53,15 @@
                     CornerRadius="10"
                     TextColor="White"/>
             </HorizontalStackLayout>
+
+            <Entry x:Name="UserAnswer"
+                   Placeholder="Scrivi la risposta..."/>
+            
+            <Button x:Name="SendUserAnswer"
+                    Text="CONFERMA RISPOSTA"
+                    Clicked="OnAnswer_Clicked"
+                    FontSize="18"
+                    BackgroundColor="{StaticResource Primary}"/>
 
             <Button 
                 x:Name="BtnResult"

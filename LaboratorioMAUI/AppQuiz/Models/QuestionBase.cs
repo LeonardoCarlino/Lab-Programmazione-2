@@ -10,7 +10,7 @@ namespace AppQuiz.Models
     {
 		private string _text;
 
-		// Proprietà
+		// Proprietà (propfull tab)
 		public string Text
 		{
 			get { return _text; }
@@ -53,7 +53,7 @@ namespace AppQuiz.Models
 			ImageName = imageName;
 		}
 
-		public abstract bool CheckAnswer(bool userAnswer);
+		public abstract bool CheckAnswer(string userAnswer);
 
 	}
 }
