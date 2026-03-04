@@ -14,7 +14,7 @@ namespace AppQuiz
             InitializeComponent();
             _questions.Add(new TrueFalseQuestion("Il C# è un linguaggio ad oggetti?", 10, true, "csharp.png"));
             _questions.Add(new TrueFalseQuestion("Python è un linguaggio compilato?", 15, false, "python_logo.png"));
-            _questions.Add(new OpenQuestion("Qual'è il nome del frame?", 20, ".NET MAUI", "microsoft.png"));
+            _questions.Add(new OpenQuestion("Qual'è il nome del frame usato per quest'app?", 20, ".NET MAUI", "microsoft.png"));
             ShowQuestion();
         }
         

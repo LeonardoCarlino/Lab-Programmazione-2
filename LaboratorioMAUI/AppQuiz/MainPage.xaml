@@ -69,7 +69,8 @@
                 HeightRequest="30"
                 IsVisible="False"
                 Text="Vai a risultati"
-                Clicked="btnResult_Clicked" />      
+                Clicked="btnResult_Clicked" />
+            
         </VerticalStackLayout>
 
     </ScrollView>
