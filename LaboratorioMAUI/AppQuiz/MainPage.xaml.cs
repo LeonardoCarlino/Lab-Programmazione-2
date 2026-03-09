@@ -4,6 +4,9 @@ namespace AppQuiz
 {
     public partial class MainPage : ContentPage
     {
+        private static readonly string _filePath = Path.Combine(
+        FileSystem.AppDataDirectory, "domande.txt");
+
         //Creiamo la lista delle domande
         private List<QuestionBase> _questions = new List<QuestionBase>();
         private int _currentIndex = 0;
@@ -12,9 +15,16 @@ namespace AppQuiz
         public MainPage()
         {
             InitializeComponent();
-            _questions.Add(new TrueFalseQuestion("Il C# è un linguaggio ad oggetti?", 10, true, "csharp.png"));
-            _questions.Add(new TrueFalseQuestion("Python è un linguaggio compilato?", 15, false, "python_logo.png"));
-            _questions.Add(new OpenQuestion("Qual'è il nome del frame usato per quest'app?", 20, ".NET MAUI", "microsoft.png"));
+            string[] domande = File.ReadAllLines(_filePath);
+            foreach (string domanda in domande) 
+            {
+                string[] info = domanda.Split(";");
+                if (info[0].Equals("TF"))
+                {
+                    int punteggio;
+                    new TrueFalseQuestion(info[1], continuare) ;
+                }
+            }
             ShowQuestion();
         }
         

@@ -20,22 +20,35 @@
             BorderColor="#c5c3c7"
             CornerRadius="15">
             <VerticalStackLayout>
-                
+
                 <Label 
                     Text="Il tuo punteggio"
                     TextColor="Black"
                     HorizontalOptions="Center"/>
-                
+
                 <Label 
                     x:Name="lblScore"
                     Text="0"
                     FontSize="40"
                     TextColor="#a55ce6"
                     HorizontalOptions="Center"/>
-                
+
             </VerticalStackLayout>
         </Frame>
-        
+        <HorizontalStackLayout
+            HorizontalOptions="Center">
+            <Entry x:Name="UserName"
+                   Placeholder="Inserisci il nome..."
+                   BackgroundColor="#f5f6f7"
+                   TextColor="Black"
+                   WidthRequest="400"/>
+            <Button x:Name="btnSaveUserName"
+                    Text="SALVA"
+                    Clicked="btnSaveUserName_Clicked"
+                    TextColor="White"
+                    BackgroundColor="DarkBlue"
+                    WidthRequest="400"/>
+        </HorizontalStackLayout>
         <Label 
             x:Name="lblBestScore"
             Text="🏆 Miglior Punteggio: "

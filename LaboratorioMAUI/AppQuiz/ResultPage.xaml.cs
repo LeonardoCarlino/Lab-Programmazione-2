@@ -10,7 +10,6 @@ public partial class ResultPage : ContentPage
 	public ResultPage(int score)
 	{
 		_score = score;
-        SaveBestScore(score);
 		InitializeComponent();
 		ShowGUI(score);
 	}
@@ -18,8 +17,10 @@ public partial class ResultPage : ContentPage
 	private void ShowGUI(int score)
 	{
         lblScore.Text = _score.ToString();
-
-        lblBestScore.Text = "🏆 Miglior Punteggio: " + LoadBestScore().ToString();
+        string content = File.ReadAllText(_filePath);
+        //Variabile locale per contenere il best score
+        string[] record = content.Split(';');
+        lblBestScore.Text = "🏆 Miglior Punteggio: " + record[1] + " di " + record[0] + " in data " + record[2];
 	}
 
     private void btnPlayAgain_Clicked(object sender, EventArgs e)
@@ -33,6 +34,8 @@ public partial class ResultPage : ContentPage
         // Attendiamo senza bloccare la pagina grazie ad await e async
         await Navigation.PushAsync(new MainPage());
     }
+
+
     private void SaveBestScore(int score)
     {
         // Allochiamo lo score estrapolato dal file txt nella variabile best
@@ -44,13 +47,20 @@ public partial class ResultPage : ContentPage
         {
             try
             {
-                File.WriteAllText(_filePath, score.ToString());
+                string userName = UserName.Text.ToString();
+                File.WriteAllText(_filePath, userName + ";" + score.ToString() + ";" + DateTime.Now.ToString("yyyy-MM-dd"));
+                ShowGUI(score);
             }
             catch (Exception ex) 
             {
                 DisplayAlert("Errore", "Impossibilie salvare il punteggio: " + ex.Message, "OK");
             }
         }
+    }
+
+    private void btnSaveUserName_Clicked(object sender, EventArgs e) 
+    {
+        SaveBestScore(_score);
     }
 
     private int LoadBestScore()
@@ -67,9 +77,10 @@ public partial class ResultPage : ContentPage
             string content = File.ReadAllText(_filePath);
 
             //Variabile locale per contenere il best score
+            string[] record = content.Split(';');
             int best;
 
-            if (int.TryParse(content, out best))
+            if (int.TryParse(record[1], out best))
             {
                 return best;
             }
