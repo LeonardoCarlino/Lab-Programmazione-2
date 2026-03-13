@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AppQuiz.ResultPage"
              Title="ResultPage"
-             BackgroundColor="White"
              Padding="20">
     <VerticalStackLayout
         VerticalOptions="Center"
@@ -12,35 +11,34 @@
         <Label 
             Text="QUIZ COMPLETATO!"
             FontSize="30"
-            TextColor="Black"
+            TextColor="White"
             HorizontalOptions="Center"/>
 
         <Frame
-            BackgroundColor="#f5f6f7"
-            BorderColor="#c5c3c7"
+            BackgroundColor="#1f211f"
+            BorderColor="#535954"
             CornerRadius="15">
             <VerticalStackLayout>
 
                 <Label 
                     Text="Il tuo punteggio"
-                    TextColor="Black"
+                    TextColor="White"
                     HorizontalOptions="Center"/>
 
                 <Label 
                     x:Name="lblScore"
                     Text="0"
                     FontSize="40"
-                    TextColor="#a55ce6"
+                    TextColor="#53995e"
                     HorizontalOptions="Center"/>
 
             </VerticalStackLayout>
         </Frame>
         <HorizontalStackLayout
-            HorizontalOptions="Center">
+            HorizontalOptions="Center"
+            Spacing = "20">
             <Entry x:Name="UserName"
                    Placeholder="Inserisci il nome..."
-                   BackgroundColor="#f5f6f7"
-                   TextColor="Black"
                    WidthRequest="400"/>
             <Button x:Name="btnSaveUserName"
                     Text="SALVA"

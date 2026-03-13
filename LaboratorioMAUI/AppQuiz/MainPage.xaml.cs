@@ -1,4 +1,5 @@
 ﻿using AppQuiz.Models;
+using System.Runtime.CompilerServices;
 
 namespace AppQuiz
 {
@@ -15,16 +16,7 @@ namespace AppQuiz
         public MainPage()
         {
             InitializeComponent();
-            string[] domande = File.ReadAllLines(_filePath);
-            foreach (string domanda in domande) 
-            {
-                string[] info = domanda.Split(";");
-                if (info[0].Equals("TF"))
-                {
-                    int punteggio;
-                    new TrueFalseQuestion(info[1], continuare) ;
-                }
-            }
+            ReadQuestion();
             ShowQuestion();
         }
         
@@ -59,10 +51,47 @@ namespace AppQuiz
             {
                 await DisplayAlert("Errore", "Riprova alla prossima.", "OK");
             }
-                _totalScore += _questions[_currentIndex].Points;
+            _totalScore += _questions[_currentIndex].Points;
             _currentIndex++;
             ShowQuestion();
          }
+
+        private void ReadQuestion()
+        {
+            if (!File.Exists(_filePath))
+            {
+                return;
+            }
+            string[] domande = File.ReadAllLines(_filePath);
+            try
+            {
+                foreach (string domanda in domande)
+                {
+                    string[] info = domanda.Split(";");
+                    if (info[0].Equals("TF"))
+                    {
+                        string frase = info[1];
+                        int punteggio = int.Parse(info[2]);
+                        bool risultato = bool.Parse(info[3]);
+                        string logo = info[4];
+
+                        _questions.Add(new TrueFalseQuestion(frase, punteggio, risultato, logo));
+                    }
+                    else if (info[0].Equals("OPEN"))
+                    {
+                        string frase = info[1];
+                        int punteggio = int.Parse(info[2]);
+                        string risposta = info[3];
+                        string logo = info[4];
+
+                        _questions.Add(new OpenQuestion(frase, punteggio, risposta, logo));
+                    }
+                }
+            }
+            catch (Exception ex) {
+                DisplayAlert("Errore", "Impossibile leggere il file delle domande: " + ex.Message, "OK");
+            }
+        }
         
         private void ShowQuestion()
         {
@@ -87,6 +116,8 @@ namespace AppQuiz
                     TrueButton.IsVisible = false;
                     FalseButton.IsVisible = false;
                 }
+                UserAnswer.Text = "";
+                UserAnswer.Placeholder = "Scrivi la risposta...";
                 ScoreLabel.Text = $"Punti: {_score.ToString()}"; //Cast in stringa
             }
             else
