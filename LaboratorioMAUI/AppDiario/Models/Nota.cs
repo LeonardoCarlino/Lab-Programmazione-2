@@ -13,14 +13,7 @@ namespace AppDiario.Models
 		public string Titolo
 		{
 			get { return _titolo; }
-			set
-			{
-				if (String.IsNullOrEmpty(value))
-				{
-					value = "Sconosciuto";
-				}
-				_titolo = value;
-			}
+			set { _titolo = value; }
 		}
 
 		private string _testo;
