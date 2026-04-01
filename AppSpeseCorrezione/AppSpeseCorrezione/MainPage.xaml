@@ -28,7 +28,7 @@
             <Button
                    x:Name="SaveBtn"
                    Text="SALVA SPESA" 
-                   Clicked="OnSalvaClicked"
+                   
                    HorizontalOptions="Fill"
                    BackgroundColor="Green"
                    TextColor="White"/>
