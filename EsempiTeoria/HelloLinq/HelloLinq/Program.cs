@@ -55,7 +55,12 @@ namespace HelloLinq
             List<string> es8 = students.Select(s => s.Name.ToUpper()).ToList();
 
             // Es9
-            List<string> es9 = students.Select(s => s.Name).ToList();
+            var es9 = students
+                .Select(s => new
+                {
+                    s.Name,
+                    s.Grade,
+                });
 
 
 
